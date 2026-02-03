@@ -108,7 +108,7 @@ public class Megatron2 {
                 System.out.println("Now you have " + tasks.size() + " tasks");
             }
             case "deadline" -> {
-                String[] deadlineArguments = userArguments.split("/");
+                String[] deadlineArguments = userArguments.split("/", 2);
                 if (deadlineArguments.length == 2) {
                     Deadline temp = new Deadline(deadlineArguments[0],false, deadlineArguments[1]);
                     tasks.add(temp);
@@ -119,7 +119,7 @@ public class Megatron2 {
                 }
             }
             case "event"    -> {
-                String[] eventArguments = userArguments.split("/");
+                String[] eventArguments = userArguments.split("/", 3);
                 if (eventArguments.length == 3) {
                     Event temp = new Event(eventArguments[0],false, eventArguments[1], eventArguments[2]);
                     tasks.add(temp);
