@@ -86,8 +86,8 @@ public class Megatron2 {
 
 
     public static Response parseInput(String userInput, List<Task> tasks) {
-        String[] splitInput = userInput.split(" ", 2);
-        String cmd = splitInput[0];
+        String[] splitInput = userInput.strip().split(" ", 2);
+        String cmd = splitInput[0].strip();
         String args;
         boolean running = true;
         String message;
@@ -98,7 +98,7 @@ public class Megatron2 {
         if (splitInput.length == 1) {
             args = "";
         } else {
-            args = splitInput[1];
+            args = splitInput[1].strip();
         }
         switch (cmd) {
             case "bye"      -> {
