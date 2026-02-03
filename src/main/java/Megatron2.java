@@ -3,148 +3,129 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Megatron2 {
-    public static void printLine() {
-        for (int i = 0; i < 60; i ++) {
-            System.out.print("_");
-        }
-        System.out.println();
-    }
-    public static void greet(String botName) {
-        System.out.println("Hello! I'm " + botName + ".");
-        System.out.println("What can I do for you?");
+    public static String greet(String botName) {
+        return "Hello! I'm " + botName + "." + "\n" +
+                "What can I do for you?";
     }
 
-    public static void bye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public static String bye() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    public static void echo(String inputString) {
-        System.out.println(inputString.toUpperCase());
+    public static String echo(String inputString) {
+        return inputString;
     }
 
-    public static void printTask(Task task) {
-        System.out.println(task.toString());
+    public static String showTask(Task task) {
+        return task.toString();
     }
 
-    public static void printTaskList(List<Task> tasks) {
+    public static String showTaskList(List<Task> tasks) {
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i < tasks.size(); i ++) {
-            System.out.print((i + 1) + ".");
-            printTask(tasks.get(i));
+            output.append((i + 1)).append(".").append(showTask(tasks.get(i))).append("\n");
         }
+        return output.toString();
     }
 
-    public static void printTaskCount(List<Task> tasks) {
-        System.out.println("You now have " + tasks.size() + " tasks");
+    private static String ackTask(Task task, int totalTasks) {
+        return task.getTypeLabel() + " added: " + task + "\n"
+                + "Now you have " + totalTasks + " tasks";
     }
 
-    public static void ackTask(ToDo task) {
-        System.out.print("To do added: ");
-        printTask(task);
-    }
-
-    public static void ackTask(Deadline task) {
-        System.out.print("Deadline added: ");
-        printTask(task);
-    }
-
-    public static void ackTask(Event task) {
-        System.out.print("Event added: ");
-        printTask(task);
-    }
-
-    public static void markTask(List<Task> tasks, String userArguments, boolean complete) {
+    public static String markTask(List<Task> tasks, String userArguments, boolean complete) {
+        String output;
         try {
             int itemNumber = Integer.parseInt(userArguments);
             int itemIndex = itemNumber - 1;
             if (itemIndex < tasks.size() && itemIndex >= 0) {
                 tasks.get(itemIndex).setComplete(complete);
                 String doneString = complete? "done" : "not done";
-                System.out.println("Marked \"" + tasks.get(itemIndex).getName() + "\" as " + doneString);
+                output = "Marked \"" + tasks.get(itemIndex).getName() + "\" as " + doneString;
             } else {
-                System.out.println("You only have " + tasks.size() + " items");
+                output = "You only have " + tasks.size() + " items";
             }
         } catch (NumberFormatException e) {
-            System.out.println("Proper format is \"mark <int>\"");
+            output = "Proper format is \"mark <int>\"";
         }
+        return output;
+    }
+
+    private static String addTask(List<Task> tasks, String userCommand, String userArguments) {
+        return switch (userCommand) {
+            case "todo" -> {
+                if (userArguments.isBlank()) yield "Format is \"todo <task name>\"\n";
+                ToDo t = new ToDo(userArguments.trim(), false);
+                tasks.add(t);
+                yield ackTask(t, tasks.size());
+            }
+            case "deadline" -> {
+                String[] parts = userArguments.split("/", 2);
+                if (parts.length != 2) yield "Format is \"deadline <task name> /<deadline>\"\n";
+                String name = parts[0].trim();
+                String by = parts[1].trim();
+                if (name.isEmpty() || by.isEmpty()) yield "Format is \"deadline <task name> /<deadline>\"\n";
+                Deadline t = new Deadline(name, false, by);
+                tasks.add(t);
+                yield ackTask(t, tasks.size());
+            }
+            case "event" -> {
+                String[] parts = userArguments.split("/", 3);
+                if (parts.length != 3) yield "Format is \"event <task name> /<start> /<end>\"\n";
+                String name = parts[0].trim();
+                String start = parts[1].trim();
+                String end = parts[2].trim();
+                if (name.isEmpty() || start.isEmpty() || end.isEmpty()) yield "Format is \"event <task name> /<start> /<end>\"\n";
+                Event t = new Event(name, false, start, end);
+                tasks.add(t);
+                yield ackTask(t, tasks.size());
+            }
+            default -> "Unknown add command\n";
+        };
     }
 
 
-
-    public static boolean parseInput(String userInput, List<Task> tasks) {
+    public static Response parseInput(String userInput, List<Task> tasks) {
         String[] splitInput = userInput.split(" ", 2);
-        String userCommand = splitInput[0];
-        String userArguments;
+        String cmd = splitInput[0];
+        String args;
         boolean running = true;
-        if (splitInput.length == 1) {
-            userArguments = "";
-        } else {
-            userArguments = splitInput[1];
+        String message;
+
+        if (userInput.isBlank()) {
+            return new Response(true, "Say something fool");
         }
-        printLine();
-        switch (userCommand) {
-            case ""         -> {
-                System.out.println("Say something fool");
-            }
+        if (splitInput.length == 1) {
+            args = "";
+        } else {
+            args = splitInput[1];
+        }
+        switch (cmd) {
             case "bye"      -> {
-                bye();
+                message = bye();
                 running = false;
             }
-            case "echo"     -> {
-                echo(userArguments);
-            }
-            case "list"     -> {
-                printTaskList(tasks);
-            }
-            case "mark"     -> {
-                markTask(tasks, userArguments, true);
-            }
-            case "unmark"   -> {
-                markTask(tasks, userArguments, false);
-            }
-            case "todo"     -> {
-                ToDo temp = new ToDo(userArguments,false);
-                tasks.add(temp);
-                ackTask(temp);
-                System.out.println("Now you have " + tasks.size() + " tasks");
-            }
-            case "deadline" -> {
-                String[] deadlineArguments = userArguments.split("/", 2);
-                if (deadlineArguments.length == 2) {
-                    Deadline temp = new Deadline(deadlineArguments[0],false, deadlineArguments[1]);
-                    tasks.add(temp);
-                    ackTask(temp);
-                    System.out.println("Now you have " + tasks.size() + " tasks");
-                } else {
-                    System.out.println("Format is \"deadline <task name> /<deadline>\"");
-                }
-            }
-            case "event"    -> {
-                String[] eventArguments = userArguments.split("/", 3);
-                if (eventArguments.length == 3) {
-                    Event temp = new Event(eventArguments[0],false, eventArguments[1], eventArguments[2]);
-                    tasks.add(temp);
-                    ackTask(temp);
-                    System.out.println("Now you have " + tasks.size() + " tasks");
-                } else {
-                    System.out.println("Format is \"event <task name> /<start> /<end>\"");
-                }
-            }
-            default         -> {
-                System.out.println("i guess bro");
-            }
+            case "echo"     -> message = echo(args);
+            case "list"     -> message = showTaskList(tasks);
+            case "mark"     -> message = markTask(tasks, args, true);
+            case "unmark"   -> message = markTask(tasks, args, false);
+            case "todo", "deadline", "event" -> message = addTask(tasks, cmd, args);
+            default         -> message = "i guess bro";
         }
-        printLine();
-        return running;
+        return new Response(running, message);
     }
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        greet("Megatron 2");
+        Ui.show(greet("Megatron 2"));
         List<Task> tasks = new ArrayList<>();
         boolean running = true;
+        Response r;
         while (running) {
             String userInput = scan.nextLine();
-            running = parseInput(userInput, tasks);
+            r = parseInput(userInput, tasks);
+            Ui.show(r.message());
+            running = r.running();
         }
     }
 }

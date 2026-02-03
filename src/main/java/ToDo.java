@@ -16,4 +16,8 @@ public class ToDo extends Task {
                 "] " +
                 getName().strip();
     }
+    @Override
+    public String getTypeLabel() {
+        return "To do";
+    }
 }

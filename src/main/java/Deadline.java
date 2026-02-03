@@ -30,4 +30,8 @@ public class Deadline extends Task {
                 ")";
 
     }
+    @Override
+    public String getTypeLabel() {
+        return "Deadline";
+    }
 }

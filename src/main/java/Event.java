@@ -42,4 +42,8 @@ public class Event extends Task {
                 ")";
 
     }
+    @Override
+    public String getTypeLabel() {
+        return "Event";
+    }
 }

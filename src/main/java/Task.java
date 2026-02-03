@@ -27,4 +27,7 @@ public class Task {
         return this.complete;
     }
 
+    public String getTypeLabel() {
+        return "Task";
+    }
 }
