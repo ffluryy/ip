@@ -14,6 +14,6 @@ public class ToDo extends Task {
         return "[" + symbol + "][" +
                 (isComplete() ? "X" : " ") +
                 "] " +
-                getName();
+                getName().strip();
     }
 }

@@ -24,9 +24,9 @@ public class Deadline extends Task {
         return "[" + symbol + "][" +
                 (isComplete() ? "X" : " ") +
                 "] " +
-                getName() +
+                getName().strip() +
                 " (by: " +
-                dueDate +
+                dueDate.strip() +
                 ")";
 
     }

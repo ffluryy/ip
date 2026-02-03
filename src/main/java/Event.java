@@ -34,11 +34,11 @@ public class Event extends Task {
         return "[" + symbol + "][" +
                 (isComplete() ? "X" : " ") +
                 "] " +
-                getName() +
+                getName().strip() +
                 " (from: " +
-                startTime +
+                startTime.strip() +
                 " to: " +
-                endTime +
+                endTime.strip() +
                 ")";
 
     }
