@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.StringJoiner;
 
 public class Megatron2 {
     public static String greet(String botName) {
@@ -21,11 +22,12 @@ public class Megatron2 {
     }
 
     public static String showTaskList(List<Task> tasks) {
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i ++) {
-            output.append((i + 1)).append(".").append(showTask(tasks.get(i))).append("\n");
+        if (tasks.isEmpty()) return "Your task list is empty";
+        StringJoiner joiner = new StringJoiner("\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            joiner.add((i + 1) + ". " + showTask(tasks.get(i)));
         }
-        return output.toString();
+        return joiner.toString();
     }
 
     private static String ackTask(Task task, int totalTasks) {
