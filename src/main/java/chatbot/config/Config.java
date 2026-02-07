@@ -1,3 +1,5 @@
+package chatbot.config;
+
 public final class Config {
     public static final String BOT_NAME         = "Megatron 2";
     public static final String GREET_CMD        = "hi";

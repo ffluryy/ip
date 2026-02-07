@@ -1,3 +1,5 @@
+package chatbot.task;
+
 public abstract class Task {
     private String name;
     private boolean complete;
@@ -28,6 +30,6 @@ public abstract class Task {
     }
 
     public String getTypeLabel() {
-        return "Task";
+        return "chatbot.task.Task";
     }
 }

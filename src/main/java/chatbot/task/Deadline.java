@@ -1,3 +1,5 @@
+package chatbot.task;
+
 public class Deadline extends Task {
     private String dueDate;
     private static final String SYMBOL = "D";
@@ -32,6 +34,6 @@ public class Deadline extends Task {
     }
     @Override
     public String getTypeLabel() {
-        return "Deadline";
+        return "chatbot.task.Deadline";
     }
 }

@@ -1,3 +1,5 @@
+package chatbot.app;
+
 import java.util.Scanner;
 public class Io {
     private final Scanner scanner = new Scanner(System.in);

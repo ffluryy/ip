@@ -1,3 +1,6 @@
+package chatbot.app;
+import chatbot.task.TaskList;
+
 public class App {
     private final Io io;
     private final TaskList taskList;

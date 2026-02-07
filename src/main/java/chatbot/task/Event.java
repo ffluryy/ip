@@ -1,3 +1,5 @@
+package chatbot.task;
+
 public class Event extends Task {
     private String startTime;
     private String endTime;
@@ -44,6 +46,6 @@ public class Event extends Task {
     }
     @Override
     public String getTypeLabel() {
-        return "Event";
+        return "chatbot.task.Event";
     }
 }
