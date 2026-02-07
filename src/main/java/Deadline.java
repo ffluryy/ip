@@ -1,6 +1,6 @@
 public class Deadline extends Task {
     private String dueDate;
-    private static final String symbol = "D";
+    private static final String SYMBOL = "D";
 
     public Deadline(String name, boolean complete, String dueDate) {
         super(name, complete);
@@ -21,7 +21,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + symbol + "][" +
+        return "[" + SYMBOL + "][" +
                 (isComplete() ? "X" : " ") +
                 "] " +
                 getName().strip() +

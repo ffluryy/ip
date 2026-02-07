@@ -1,17 +1,13 @@
 public class ToDo extends Task {
-    private static final String symbol = "T";
+    private static final String SYMBOL = "T";
 
     public ToDo(String name, boolean complete) {
         super(name, complete);
     }
 
-    public ToDo() {
-        super();
-    }
-
     @Override
     public String toString() {
-        return "[" + symbol + "][" +
+        return "[" + SYMBOL + "][" +
                 (isComplete() ? "X" : " ") +
                 "] " +
                 getName().strip();

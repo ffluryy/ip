@@ -1,9 +1,16 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.util.StringJoiner;
 
-public class Megatron2 {
+public class Parser {
+    private static String botName = "Unnamed";
+
+    public static void setName(String botName) {
+        Parser.botName = botName;
+    }
+
+    public static String getName() {
+        return botName;
+    }
+    
     public static String greet(String botName) {
         return "Hello! I'm " + botName + "." + "\n" +
                 "What can I do for you?";
@@ -21,31 +28,31 @@ public class Megatron2 {
         return task.toString();
     }
 
-    public static String showTaskList(List<Task> tasks) {
-        if (tasks.isEmpty()) return "Your task list is empty";
+    public static String showTaskList(TaskList taskList) {
+        if (taskList.isEmpty()) return "Your task list is empty";
         StringJoiner joiner = new StringJoiner("\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            joiner.add((i + 1) + ". " + showTask(tasks.get(i)));
+        for (int i = 0; i < taskList.size(); i++) {
+            joiner.add((i + 1) + ". " + showTask(taskList.get(i)));
         }
         return joiner.toString();
     }
 
-    private static String ackTask(Task task, int totalTasks) {
+    private static String ackTask(Task task, int totaltaskList) {
         return task.getTypeLabel() + " added: " + task + "\n"
-                + "Now you have " + totalTasks + " tasks";
+                + "Now you have " + totaltaskList + " taskList";
     }
 
-    public static String markTask(List<Task> tasks, String userArguments, boolean complete) {
+    public static String markTask(TaskList taskList, String userArguments, boolean complete) {
         String output;
         try {
             int itemNumber = Integer.parseInt(userArguments);
             int itemIndex = itemNumber - 1;
-            if (itemIndex < tasks.size() && itemIndex >= 0) {
-                tasks.get(itemIndex).setComplete(complete);
+            if (itemIndex < taskList.size() && itemIndex >= 0) {
+                taskList.get(itemIndex).setComplete(complete);
                 String doneString = complete? "done" : "not done";
-                output = "Marked \"" + tasks.get(itemIndex).getName() + "\" as " + doneString;
+                output = "Marked \"" + taskList.get(itemIndex).getName() + "\" as " + doneString;
             } else {
-                output = "You only have " + tasks.size() + " items";
+                output = "You only have " + taskList.size() + " items";
             }
         } catch (NumberFormatException e) {
             output = "Proper format is \"mark <int>\"";
@@ -53,13 +60,13 @@ public class Megatron2 {
         return output;
     }
 
-    private static String addTask(List<Task> tasks, String userCommand, String userArguments) {
+    private static String addTask(TaskList taskList, String userCommand, String userArguments) {
         return switch (userCommand) {
             case "todo" -> {
                 if (userArguments.isBlank()) yield "Format is \"todo <task name>\"\n";
                 ToDo t = new ToDo(userArguments.trim(), false);
-                tasks.add(t);
-                yield ackTask(t, tasks.size());
+                taskList.add(t);
+                yield ackTask(t, taskList.size());
             }
             case "deadline" -> {
                 String[] parts = userArguments.split("/", 2);
@@ -68,8 +75,8 @@ public class Megatron2 {
                 String by = parts[1].trim();
                 if (name.isEmpty() || by.isEmpty()) yield "Format is \"deadline <task name> /<deadline>\"\n";
                 Deadline t = new Deadline(name, false, by);
-                tasks.add(t);
-                yield ackTask(t, tasks.size());
+                taskList.add(t);
+                yield ackTask(t, taskList.size());
             }
             case "event" -> {
                 String[] parts = userArguments.split("/", 3);
@@ -79,20 +86,20 @@ public class Megatron2 {
                 String end = parts[2].trim();
                 if (name.isEmpty() || start.isEmpty() || end.isEmpty()) yield "Format is \"event <task name> /<start> /<end>\"\n";
                 Event t = new Event(name, false, start, end);
-                tasks.add(t);
-                yield ackTask(t, tasks.size());
+                taskList.add(t);
+                yield ackTask(t, taskList.size());
             }
             default -> "Unknown add command\n";
         };
     }
 
 
-    public static Response parseInput(String userInput, List<Task> tasks) {
+    public static Response parseInput(String userInput, TaskList taskList) {
         String[] splitInput = userInput.strip().split(" ", 2);
         String cmd = splitInput[0].strip();
         String args;
         boolean running = true;
-        String message;
+        String message = "Undefined";
 
         if (userInput.isBlank()) {
             return new Response(true, "Say something fool");
@@ -102,32 +109,22 @@ public class Megatron2 {
         } else {
             args = splitInput[1].strip();
         }
-        switch (cmd) {
-            case "bye"      -> {
+
+        switch (cmd.toLowerCase()) {
+            case Config.GREET_CMD           -> message = greet(botName);
+            case Config.BYE_CMD             -> {
                 message = bye();
                 running = false;
             }
-            case "echo"     -> message = echo(args);
-            case "list"     -> message = showTaskList(tasks);
-            case "mark"     -> message = markTask(tasks, args, true);
-            case "unmark"   -> message = markTask(tasks, args, false);
-            case "todo", "deadline", "event" -> message = addTask(tasks, cmd, args);
-            default         -> message = "i guess bro";
+            case Config.ECHO_CMD            -> message = echo(args);
+            case Config.LIST_CMD            -> message = showTaskList(taskList);
+            case Config.MARK_CMD            -> message = markTask(taskList, args, true);
+            case Config.UNMARK_CMD          -> message = markTask(taskList, args, false);
+            case Config.EVENT_CMD, 
+                Config.DEADLINE_CMD, 
+                Config.TODO_CMD             -> message = addTask(taskList, cmd, args);
+            default                         -> message = "i guess bro";
         }
         return new Response(running, message);
-    }
-
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        Ui.show(greet("Megatron 2"));
-        List<Task> tasks = new ArrayList<>();
-        boolean running = true;
-        Response r;
-        while (running) {
-            String userInput = scan.nextLine();
-            r = parseInput(userInput, tasks);
-            Ui.show(r.message());
-            running = r.running();
-        }
     }
 }

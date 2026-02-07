@@ -1,7 +1,7 @@
 public class Event extends Task {
     private String startTime;
     private String endTime;
-    private static final String symbol = "E";
+    private static final String SYMBOL = "E";
 
     public Event(String name, boolean complete, String startTime, String endTime) {
         super(name, complete);
@@ -31,7 +31,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + symbol + "][" +
+        return "[" + SYMBOL + "][" +
                 (isComplete() ? "X" : " ") +
                 "] " +
                 getName().strip() +
