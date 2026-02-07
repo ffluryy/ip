@@ -5,3 +5,10 @@ todo hi
  
      
      todo hi
+event hi /now  /later
+event             /now               /tomorrow
+list 
+remove     1
+list
+remove        2     
+list
