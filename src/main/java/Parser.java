@@ -91,49 +91,55 @@ public class Parser {
 
     private String removeTask(TaskList taskList, String userArguments) {
         String output;
-        int itemNumber = Integer.parseInt(userArguments);
-        int itemIndex = itemNumber - 1;
-        if (!taskList.remove(itemIndex)) {
-            output = "Task does not exist";
-        } else {
+        int itemNumber = -1;
+        try {
+            itemNumber = Integer.parseInt(userArguments);
+            int itemIndex = itemNumber - 1;
+            taskList.remove(itemIndex);
             output = "Task " + itemNumber + " removed";
+        } catch (NumberFormatException e) {
+            output = "\"" + userArguments + "\" is not an int";
+        } catch (IndexOutOfBoundsException e) {
+            output = "Task number " + itemNumber + " does not exist";
+        } catch (Exception e) {
+            output = e.toString();
         }
         return output;
     }
 
 
-    public Response parseInput(String userInput, TaskList taskList) {
-        String[] splitInput = userInput.strip().split(" ", 2);
-        String cmd = splitInput[0].strip();
-        String args;
-        boolean running = true;
-        String message = "Undefined";
+        public Response parseInput (String userInput, TaskList taskList){
+            String[] splitInput = userInput.strip().split(" ", 2);
+            String cmd = splitInput[0].strip();
+            String args;
+            boolean running = true;
+            String message;
 
-        if (userInput.isBlank()) {
-            return new Response(true, "Say something fool");
-        }
-        if (splitInput.length == 1) {
-            args = "";
-        } else {
-            args = splitInput[1].strip();
-        }
-
-        switch (cmd.toLowerCase()) {
-            case Config.GREET_CMD           -> message = greet(botName);
-            case Config.BYE_CMD             -> {
-                message = bye();
-                running = false;
+            if (userInput.isBlank()) {
+                return new Response(true, "Say something fool");
             }
-            case Config.ECHO_CMD            -> message = echo(args);
-            case Config.LIST_CMD            -> message = showTaskList(taskList);
-            case Config.MARK_CMD            -> message = markTask(taskList, args, true);
-            case Config.UNMARK_CMD          -> message = markTask(taskList, args, false);
-            case Config.EVENT_CMD, 
-                Config.DEADLINE_CMD, 
-                Config.TODO_CMD             -> message = addTask(taskList, cmd, args);
-            case Config.REMOVE_CMD          -> message = removeTask(taskList, args);
-            default                         -> message = "i guess bro";
+            if (splitInput.length == 1) {
+                args = "";
+            } else {
+                args = splitInput[1].strip();
+            }
+
+            switch (cmd.toLowerCase()) {
+                case Config.GREET_CMD -> message = greet(botName);
+                case Config.BYE_CMD -> {
+                    message = bye();
+                    running = false;
+                }
+                case Config.ECHO_CMD -> message = echo(args);
+                case Config.LIST_CMD -> message = showTaskList(taskList);
+                case Config.MARK_CMD -> message = markTask(taskList, args, true);
+                case Config.UNMARK_CMD -> message = markTask(taskList, args, false);
+                case Config.EVENT_CMD,
+                     Config.DEADLINE_CMD,
+                     Config.TODO_CMD -> message = addTask(taskList, cmd, args);
+                case Config.REMOVE_CMD -> message = removeTask(taskList, args);
+                default -> message = "i guess bro";
+            }
+            return new Response(running, message);
         }
-        return new Response(running, message);
     }
-}
