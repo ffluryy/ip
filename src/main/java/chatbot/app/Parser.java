@@ -1,3 +1,7 @@
+package chatbot.app;
+import chatbot.config.Config;
+import chatbot.task.*;
+
 import java.util.StringJoiner;
 
 public class Parser {
@@ -96,11 +100,15 @@ public class Parser {
             itemNumber = Integer.parseInt(userArguments);
             int itemIndex = itemNumber - 1;
             taskList.remove(itemIndex);
-            output = "Task " + itemNumber + " removed";
+            output = "chatbot.task.Task " + itemNumber + " removed";
         } catch (NumberFormatException e) {
-            output = "\"" + userArguments + "\" is not an int";
+            if (userArguments.isBlank()) {
+                output = "remove what bozo";
+            } else {
+                output = "\"" + userArguments + "\" is not an int";
+            }
         } catch (IndexOutOfBoundsException e) {
-            output = "Task number " + itemNumber + " does not exist";
+            output = "chatbot.task.Task number " + itemNumber + " does not exist";
         } catch (Exception e) {
             output = e.toString();
         }

@@ -3,7 +3,7 @@ Hello! I'm Megatron 2.
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
-Event added: [E][ ] hi (from: dadsa to: d sadasads)
+chatbot.task.Event added: [E][ ] hi (from: dadsa to: d sadasads)
 Now you have 1 tasks
 ____________________________________________________________
 ____________________________________________________________
