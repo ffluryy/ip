@@ -16,8 +16,13 @@ public class TaskList {
         return tasks.size();
     }
 
-    public boolean remove(Task task) {
-        return tasks.remove(task);
+    public boolean remove(int i) {
+        try {
+            tasks.remove(i);
+            return true;
+        } catch (Exception exception){
+            return false;
+        }
     }
 
     public boolean isEmpty() {

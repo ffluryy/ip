@@ -1,34 +1,30 @@
 import java.util.StringJoiner;
 
 public class Parser {
-    private static String botName = "Unnamed";
+    private final String botName;
 
-    public static void setName(String botName) {
-        Parser.botName = botName;
-    }
-
-    public static String getName() {
-        return botName;
+    public Parser(String botName) {
+        this.botName = botName;
     }
     
-    public static String greet(String botName) {
+    private static String greet(String botName) {
         return "Hello! I'm " + botName + "." + "\n" +
                 "What can I do for you?";
     }
 
-    public static String bye() {
+    private String bye() {
         return "Bye. Hope to see you again soon!";
     }
 
-    public static String echo(String inputString) {
+    private String echo(String inputString) {
         return inputString;
     }
 
-    public static String showTask(Task task) {
+    private String showTask(Task task) {
         return task.toString();
     }
 
-    public static String showTaskList(TaskList taskList) {
+    private String showTaskList(TaskList taskList) {
         if (taskList.isEmpty()) return "Your task list is empty";
         StringJoiner joiner = new StringJoiner("\n");
         for (int i = 0; i < taskList.size(); i++) {
@@ -37,12 +33,12 @@ public class Parser {
         return joiner.toString();
     }
 
-    private static String ackTask(Task task, int totaltaskList) {
+    private String ackTask(Task task, int taskCount) {
         return task.getTypeLabel() + " added: " + task + "\n"
-                + "Now you have " + totaltaskList + " taskList";
+                + "Now you have " + taskCount + " tasks";
     }
 
-    public static String markTask(TaskList taskList, String userArguments, boolean complete) {
+    private String markTask(TaskList taskList, String userArguments, boolean complete) {
         String output;
         try {
             int itemNumber = Integer.parseInt(userArguments);
@@ -60,7 +56,7 @@ public class Parser {
         return output;
     }
 
-    private static String addTask(TaskList taskList, String userCommand, String userArguments) {
+    private String addTask(TaskList taskList, String userCommand, String userArguments) {
         return switch (userCommand) {
             case "todo" -> {
                 if (userArguments.isBlank()) yield "Format is \"todo <task name>\"\n";
@@ -93,8 +89,20 @@ public class Parser {
         };
     }
 
+    private String removeTask(TaskList taskList, String userArguments) {
+        String output;
+        int itemNumber = Integer.parseInt(userArguments);
+        int itemIndex = itemNumber - 1;
+        if (!taskList.remove(itemIndex)) {
+            output = "Task does not exist";
+        } else {
+            output = "Task " + itemNumber + " removed";
+        }
+        return output;
+    }
 
-    public static Response parseInput(String userInput, TaskList taskList) {
+
+    public Response parseInput(String userInput, TaskList taskList) {
         String[] splitInput = userInput.strip().split(" ", 2);
         String cmd = splitInput[0].strip();
         String args;
@@ -123,6 +131,7 @@ public class Parser {
             case Config.EVENT_CMD, 
                 Config.DEADLINE_CMD, 
                 Config.TODO_CMD             -> message = addTask(taskList, cmd, args);
+            case Config.REMOVE_CMD          -> message = removeTask(taskList, args);
             default                         -> message = "i guess bro";
         }
         return new Response(running, message);

@@ -1,20 +1,21 @@
 public class App {
-    private static Io io;
-    private static TaskList taskList;
+    private final Io io;
+    private final TaskList taskList;
+    private final Parser parser;
 
-    public App(Io io, TaskList taskList) {
-        App.io = io;
-        App.taskList = taskList;
+    public App(Io io, TaskList taskList, Parser parser) {
+        this.io = io;
+        this.taskList = taskList;
+        this.parser = parser;
     }
 
     public void run() {
         boolean running = true;
         Response r;
-        Parser.setName(Config.BOT_NAME);
-        Io.show(Parser.parseInput("hi", taskList).message());
+        Io.show(parser.parseInput("hi", taskList).message());
         while (running) {
             String userInput = io.readCommand();
-            r = Parser.parseInput(userInput, taskList);
+            r = parser.parseInput(userInput, taskList);
             Io.show(r.message());
             running = r.running();
         }

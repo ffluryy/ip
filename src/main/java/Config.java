@@ -9,4 +9,5 @@ public final class Config {
     public static final String LIST_CMD         = "list";
     public static final String MARK_CMD         = "mark";
     public static final String UNMARK_CMD       = "unmark";
-}
+    public static final String REMOVE_CMD       = "remove";
+};
