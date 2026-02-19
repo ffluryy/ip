@@ -13,11 +13,11 @@ public class Deadline extends Task {
         this("Empty", false, "No due date");
     }
 
-    public void setDueDate(String dueDate) {
+    public void setBy(String dueDate) {
         this.dueDate = dueDate;
     }
 
-    public String getDueDate() {
+    public String getBy() {
         return dueDate;
     }
 

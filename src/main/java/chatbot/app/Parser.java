@@ -10,7 +10,7 @@ public class Parser {
     public Parser(String botName) {
         this.botName = botName;
     }
-    
+
     private static String greet(String botName) {
         return "Hello! I'm " + botName + "." + "\n" +
                 "What can I do for you?";
@@ -116,38 +116,38 @@ public class Parser {
     }
 
 
-        public Response parseInput (String userInput, TaskList taskList){
-            String[] splitInput = userInput.strip().split(" ", 2);
-            String cmd = splitInput[0].strip();
-            String args;
-            boolean running = true;
-            String message;
+    public Response parseInput (String userInput, TaskList taskList){
+        String[] splitInput = userInput.strip().split(" ", 2);
+        String cmd = splitInput[0].strip();
+        String args;
+        boolean running = true;
+        String message;
 
-            if (userInput.isBlank()) {
-                return new Response(true, "Say something fool");
-            }
-            if (splitInput.length == 1) {
-                args = "";
-            } else {
-                args = splitInput[1].strip();
-            }
-
-            switch (cmd.toLowerCase()) {
-                case Config.GREET_CMD -> message = greet(botName);
-                case Config.BYE_CMD -> {
-                    message = bye();
-                    running = false;
-                }
-                case Config.ECHO_CMD -> message = echo(args);
-                case Config.LIST_CMD -> message = showTaskList(taskList);
-                case Config.MARK_CMD -> message = markTask(taskList, args, true);
-                case Config.UNMARK_CMD -> message = markTask(taskList, args, false);
-                case Config.EVENT_CMD,
-                     Config.DEADLINE_CMD,
-                     Config.TODO_CMD -> message = addTask(taskList, cmd, args);
-                case Config.REMOVE_CMD -> message = removeTask(taskList, args);
-                default -> message = "i guess bro";
-            }
-            return new Response(running, message);
+        if (userInput.isBlank()) {
+            return new Response(true, "Say something fool");
         }
+        if (splitInput.length == 1) {
+            args = "";
+        } else {
+            args = splitInput[1].strip();
+        }
+
+        switch (cmd.toLowerCase()) {
+            case Config.GREET_CMD -> message = greet(botName);
+            case Config.BYE_CMD -> {
+                message = bye();
+                running = false;
+            }
+            case Config.ECHO_CMD -> message = echo(args);
+            case Config.LIST_CMD -> message = showTaskList(taskList);
+            case Config.MARK_CMD -> message = markTask(taskList, args, true);
+            case Config.UNMARK_CMD -> message = markTask(taskList, args, false);
+            case Config.EVENT_CMD,
+                 Config.DEADLINE_CMD,
+                 Config.TODO_CMD -> message = addTask(taskList, cmd, args);
+            case Config.REMOVE_CMD -> message = removeTask(taskList, args);
+            default -> message = "i guess bro";
+        }
+        return new Response(running, message);
     }
+}
