@@ -30,6 +30,6 @@ public abstract class Task {
     }
 
     public String getTypeLabel() {
-        return "chatbot.task.Task";
+        return "Task";
     }
 }

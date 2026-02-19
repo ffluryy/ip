@@ -16,6 +16,6 @@ public class ToDo extends Task {
     }
     @Override
     public String getTypeLabel() {
-        return "To do";
+        return "Todo";
     }
 }

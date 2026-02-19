@@ -34,6 +34,6 @@ public class Deadline extends Task {
     }
     @Override
     public String getTypeLabel() {
-        return "chatbot.task.Deadline";
+        return "Deadline";
     }
 }

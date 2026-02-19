@@ -3,14 +3,12 @@ package chatbot.app;
 import java.util.Scanner;
 public class Io {
     private final Scanner scanner = new Scanner(System.in);
+    private static final String line = "-".repeat(100);
 
     public static void line() {
-        for (int i = 0; i < 60; i ++) {
-            System.out.print("_");
-        }
-        System.out.println();
+        System.out.println(line);
     }
-    
+
     public String readCommand() {
         return scanner.nextLine();
     }
