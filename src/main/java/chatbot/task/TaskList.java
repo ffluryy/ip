@@ -1,9 +1,10 @@
 package chatbot.task;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class TaskList {
+public class TaskList implements Iterable<Task> {
     private final List<Task> tasks = new ArrayList<>();
 
     public void add(Task task) {
@@ -26,4 +27,8 @@ public class TaskList {
         return tasks.isEmpty();
     }
 
+    @Override
+    public Iterator<Task> iterator() {
+        return tasks.iterator();
+    }
 }

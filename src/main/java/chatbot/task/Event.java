@@ -15,19 +15,19 @@ public class Event extends Task {
         this("Empty", false, "No start time", "No end time");
     }
 
-    public void setStartTime(String startTime) {
+    public void setStart(String startTime) {
         this.startTime = startTime;
     }
 
-    public String getStartTime() {
+    public String getStart() {
         return startTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEnd(String endTime) {
         this.endTime = endTime;
     }
 
-    public String getEndTime() {
+    public String getEnd() {
         return endTime;
     }
 
