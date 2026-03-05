@@ -34,6 +34,6 @@ public abstract class Task {
     }
 
     public String getInfo(){
-        return name;
+        return name.toLowerCase();
     }
 }
