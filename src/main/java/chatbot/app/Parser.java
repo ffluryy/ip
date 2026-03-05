@@ -1,4 +1,5 @@
 package chatbot.app;
+
 import chatbot.app.search.EntryList;
 import chatbot.app.search.SearchEntry;
 import chatbot.config.Commands;
@@ -144,7 +145,7 @@ public class Parser {
     private String find(TaskList taskList, String userArguments) {
         String[] keywords = userArguments.toLowerCase().split("\\s+");
         EntryList entryList = new EntryList();
-        for (int i = 0; i < taskList.size(); i ++) {
+        for (int i = 0; i < taskList.size(); i++) {
             for (String keyword : keywords) {
                 if (taskList.get(i).getInfo().contains(keyword)) {
                     entryList.addCount(i);

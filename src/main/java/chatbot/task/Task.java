@@ -10,16 +10,20 @@ package chatbot.task;
  */
 public abstract class Task {
 
-    /** The name or description of the task. */
+    /**
+     * The name or description of the task.
+     */
     private String name;
 
-    /** Indicates whether the task has been completed. */
+    /**
+     * Indicates whether the task has been completed.
+     */
     private boolean complete;
 
     /**
      * Constructs a {@code Task} with the specified name and completion status.
      *
-     * @param name the name or description of the task
+     * @param name     the name or description of the task
      * @param complete whether the task is completed
      */
     public Task(String name, boolean complete) {
@@ -89,7 +93,7 @@ public abstract class Task {
      *
      * @return a string containing searchable task information
      */
-    public String getInfo(){
+    public String getInfo() {
         return name.toLowerCase();
     }
 }

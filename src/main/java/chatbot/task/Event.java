@@ -8,22 +8,28 @@ package chatbot.task;
  */
 public class Event extends Task {
 
-    /** The start time or date of the event. */
+    /**
+     * The start time or date of the event.
+     */
     private String startTime;
 
-    /** The end time or date of the event. */
+    /**
+     * The end time or date of the event.
+     */
     private String endTime;
 
-    /** The symbol representing the Event task type. */
+    /**
+     * The symbol representing the Event task type.
+     */
     private static final String SYMBOL = "E";
 
     /**
      * {@inheritDoc}
      *
-     * @param name {@inheritDoc}
-     * @param complete {@inheritDoc}
+     * @param name      {@inheritDoc}
+     * @param complete  {@inheritDoc}
      * @param startTime the starting time or date
-     * @param endTime the ending time or date
+     * @param endTime   the ending time or date
      */
     public Event(String name, boolean complete, String startTime, String endTime) {
         super(name, complete);

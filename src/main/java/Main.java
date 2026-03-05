@@ -16,7 +16,7 @@ public class Main {
             App app = new App(ui, taskList, parser);
             app.run();
             storage.save(taskList);
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Failed to access storage file.");
             System.out.println("Reason: " + e.getMessage());
             System.exit(1);

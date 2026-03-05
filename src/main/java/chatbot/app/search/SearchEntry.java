@@ -10,7 +10,7 @@ public class SearchEntry {
     }
 
     public SearchEntry() {
-        new SearchEntry(0,0);
+        new SearchEntry(0, 0);
     }
 
     public int getIndex() {
@@ -30,6 +30,6 @@ public class SearchEntry {
     }
 
     public void incrementCount() {
-        this.count ++;
+        this.count++;
     }
 }

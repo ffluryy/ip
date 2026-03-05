@@ -11,10 +11,14 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    /** Scanner used to read user input from standard input. */
+    /**
+     * Scanner used to read user input from standard input.
+     */
     private final Scanner scanner = new Scanner(System.in);
 
-    /** Separator line used to visually divide console output. */
+    /**
+     * Separator line used to visually divide console output.
+     */
     private static final String line = "-".repeat(100);
 
     /**

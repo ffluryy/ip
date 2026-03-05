@@ -13,7 +13,7 @@ public class EntryList extends ArrayList<SearchEntry> {
             }
         }
         if (!exists) {
-            this.add(new SearchEntry(index,1));
+            this.add(new SearchEntry(index, 1));
         }
     }
 
