@@ -92,7 +92,7 @@ public abstract class Task {
      *
      * @return a string containing searchable task information
      */
-    public String getInfo() {
-        return name;
+    public String getInfo(){
+        return name.toLowerCase();
     }
 }
