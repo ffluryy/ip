@@ -1,6 +1,6 @@
 # Megatron 2 User Guide
 
-![](docs\Images\1.png)
+![](https://github.com/ffluryy/ip/blob/master/docs/Images/1.png?raw=true)
 
 Megatron 2 is a command-line task management chatbot. It allows users to manage tasks by adding, listing, marking, deleting, and searching for tasks. The bot accepts text commands and responds with structured feedback.
 
@@ -47,7 +47,7 @@ If no tasks exist:
 Your task list is empty
 ```
 
-![](docs\Images\2.png)
+![](https://github.com/ffluryy/ip/blob/master/docs/Images/2.png?raw=true)
 
 --------------------------------------------------
 
@@ -178,7 +178,7 @@ Expected behavior:
 Tasks found:
 [E][ ] Project meeting (from: Monday 2pm to: Monday 4pm)
 ```
-![](docs\Images\3.png)
+![](https://github.com/ffluryy/ip/blob/master/docs/Images/3.png?raw=true)
 
 --------------------------------------------------
 
