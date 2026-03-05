@@ -1,7 +1,7 @@
 package chatbot.app;
 
 import java.util.Scanner;
-public class Io {
+public class Ui {
     private final Scanner scanner = new Scanner(System.in);
     private static final String line = "-".repeat(100);
 
