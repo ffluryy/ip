@@ -13,6 +13,21 @@ The bot maintains a task list during runtime and allows users to manipulate it u
 
 --------------------------------------------------
 
+## Quick Start
+
+1. Download the `ip.jar` file.
+2. Move the `.jar` file into an empty directory.
+3. Open a terminal in that directory.
+4. Run the program with:
+```
+java -jar ip.jar
+```
+When the program runs for the first time, it will automatically create a new folder called `data`.
+
+Inside this folder, a file named `tasks.txt` will be created. This file stores the task list used by the chatbot.
+
+--------------------------------------------------
+
 ## Greeting the bot
 
 Displays a greeting message.
