@@ -7,13 +7,15 @@ package chatbot.task;
  */
 public class ToDo extends Task {
 
-    /** The symbol representing the Todo task type. */
+    /**
+     * The symbol representing the Todo task type.
+     */
     private static final String SYMBOL = "T";
 
     /**
      * {@inheritDoc}
-     * * @param name {@inheritDoc}
-     * @param complete {@inheritDoc}
+     * @param name     the name or description of the task
+     * @param complete whether the task is completed
      */
     public ToDo(String name, boolean complete) {
         super(name, complete);

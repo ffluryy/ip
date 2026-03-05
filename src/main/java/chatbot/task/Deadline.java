@@ -8,18 +8,22 @@ package chatbot.task;
  */
 public class Deadline extends Task {
 
-    /** The date or time by which the task must be completed. */
+    /**
+     * The date or time by which the task must be completed.
+     */
     private String dueDate;
 
-    /** The symbol representing the Deadline task type. */
+    /**
+     * The symbol representing the Deadline task type.
+     */
     private static final String SYMBOL = "D";
 
     /**
      * {@inheritDoc}
      *
-     * @param name {@inheritDoc}
-     * @param complete {@inheritDoc}
-     * @param dueDate the date or time the task is due
+     * @param name     the name or description of the task
+     * @param complete whether the task is completed
+     * @param dueDate  the date or time the task is due
      */
     public Deadline(String name, boolean complete, String dueDate) {
         super(name, complete);
