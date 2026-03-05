@@ -1,0 +1,2 @@
+T | 0 | Clear this task
+T | 1 | This is what a completed todo looks like

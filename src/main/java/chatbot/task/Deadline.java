@@ -36,4 +36,9 @@ public class Deadline extends Task {
     public String getTypeLabel() {
         return "Deadline";
     }
+
+    @Override
+    public String getInfo() {
+        return getName() + getBy();
+    }
 }

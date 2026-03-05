@@ -48,4 +48,9 @@ public class Event extends Task {
     public String getTypeLabel() {
         return "Event";
     }
+
+    @Override
+    public String getInfo() {
+        return getName() + getStart() + getEnd();
+    }
 }
