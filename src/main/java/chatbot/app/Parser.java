@@ -142,7 +142,7 @@ public class Parser {
     }
 
     private String find(TaskList taskList, String userArguments) {
-        String[] keywords = userArguments.split("\\s+");
+        String[] keywords = userArguments.toLowerCase().split("\\s+");
         EntryList entryList = new EntryList();
         for (int i = 0; i < taskList.size(); i ++) {
             for (String keyword : keywords) {
@@ -159,7 +159,7 @@ public class Parser {
         for (SearchEntry searchEntry : entryList) {
             joiner.add(taskList.get(searchEntry.getIndex()).toString());
         }
-        return "Tasks found: \n" + joiner.toString();
+        return "Tasks found: \n" + joiner;
     }
 
     public Response parseInput(String userInput, TaskList taskList) {

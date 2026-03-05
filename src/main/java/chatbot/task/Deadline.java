@@ -87,6 +87,6 @@ public class Deadline extends Task {
      */
     @Override
     public String getInfo() {
-        return getName() + getBy();
+        return (getName() + getBy()).toLowerCase();
     }
 }
