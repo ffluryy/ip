@@ -2,12 +2,12 @@ package chatbot.app;
 import chatbot.task.TaskList;
 
 public class App {
-    private final Io io;
+    private final Ui ui;
     private final TaskList taskList;
     private final Parser parser;
 
-    public App(Io io, TaskList taskList, Parser parser) {
-        this.io = io;
+    public App(Ui ui, TaskList taskList, Parser parser) {
+        this.ui = ui;
         this.taskList = taskList;
         this.parser = parser;
     }
@@ -15,11 +15,11 @@ public class App {
     public void run() {
         boolean running = true;
         Response r;
-        Io.show(parser.parseInput("hi", taskList).message());
+        Ui.show(parser.parseInput("hi", taskList));
         while (running) {
-            String userInput = io.readCommand();
+            String userInput = ui.readCommand();
             r = parser.parseInput(userInput, taskList);
-            Io.show(r.message());
+            Ui.show(r);
             running = r.running();
         }
     }
