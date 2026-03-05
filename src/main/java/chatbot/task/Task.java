@@ -32,4 +32,8 @@ public abstract class Task {
     public String getTypeLabel() {
         return "Task";
     }
+
+    public String getInfo(){
+        return name;
+    }
 }

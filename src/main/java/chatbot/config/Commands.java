@@ -12,4 +12,5 @@ public final class Commands {
     public static final String UNMARK_CMD       = "unmark";
     public static final String DELETE_CMD       = "delete";
     public static final String HELP_CMD         = "help";
+    public static final String FIND_CMD         = "find";
 };

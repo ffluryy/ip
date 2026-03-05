@@ -1,4 +1,6 @@
 package chatbot.app;
+import chatbot.app.search.EntryList;
+import chatbot.app.search.SearchEntry;
 import chatbot.config.Commands;
 import chatbot.config.Config;
 import chatbot.task.*;
@@ -139,6 +141,27 @@ public class Parser {
         return "List of commands: " + String.join(", ", commands);
     }
 
+    private String find(TaskList taskList, String userArguments) {
+        String[] keywords = userArguments.split("\\s+");
+        EntryList entryList = new EntryList();
+        for (int i = 0; i < taskList.size(); i ++) {
+            for (String keyword : keywords) {
+                if (taskList.get(i).getInfo().contains(keyword)) {
+                    entryList.addCount(i);
+                }
+            }
+        }
+        entryList.sort();
+        if (entryList.isEmpty()) {
+            return "No Tasks found.";
+        }
+        StringJoiner joiner = new StringJoiner("\n");
+        for (SearchEntry searchEntry : entryList) {
+            joiner.add(taskList.get(searchEntry.getIndex()).toString());
+        }
+        return "Tasks found: \n" + joiner.toString();
+    }
+
     public Response parseInput(String userInput, TaskList taskList) {
         if (userInput.isBlank()) {
             return new Response(true, "Blank input received");
@@ -167,6 +190,7 @@ public class Parser {
                  Commands.TODO_CMD -> message = addTask(taskList, cmd, args);
             case Commands.DELETE_CMD -> message = deleteTask(taskList, args);
             case Commands.HELP_CMD -> message = manual();
+            case Commands.FIND_CMD -> message = find(taskList, args);
             default -> message = Config.HELP_MSG;
             }
         } catch (AppExceptions.UserInputException | AppExceptions.OutOfRange e) {
