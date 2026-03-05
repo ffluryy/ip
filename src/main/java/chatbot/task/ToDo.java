@@ -14,9 +14,8 @@ public class ToDo extends Task {
 
     /**
      * {@inheritDoc}
-     * * @param name {@inheritDoc}
-     *
-     * @param complete {@inheritDoc}
+     * @param name     the name or description of the task
+     * @param complete whether the task is completed
      */
     public ToDo(String name, boolean complete) {
         super(name, complete);

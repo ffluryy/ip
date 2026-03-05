@@ -21,8 +21,8 @@ public class Deadline extends Task {
     /**
      * {@inheritDoc}
      *
-     * @param name     {@inheritDoc}
-     * @param complete {@inheritDoc}
+     * @param name     the name or description of the task
+     * @param complete whether the task is completed
      * @param dueDate  the date or time the task is due
      */
     public Deadline(String name, boolean complete, String dueDate) {

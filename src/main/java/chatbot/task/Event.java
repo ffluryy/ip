@@ -26,8 +26,8 @@ public class Event extends Task {
     /**
      * {@inheritDoc}
      *
-     * @param name      {@inheritDoc}
-     * @param complete  {@inheritDoc}
+     * @param name      the name or description of the task
+     * @param complete  whether the task is completed
      * @param startTime the starting time or date
      * @param endTime   the ending time or date
      */

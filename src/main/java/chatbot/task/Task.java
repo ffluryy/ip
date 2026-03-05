@@ -77,7 +77,6 @@ public abstract class Task {
     /**
      * Returns a label representing the type of task.
      * <p>
-     * Subclasses may override this method to return a more specific type label.
      *
      * @return the task type label
      */
